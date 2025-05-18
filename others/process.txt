@@ -1,0 +1,46 @@
+langkah-langkah RS
+1. Cleaning dlu datasetnya buat diambil sesuai kolom yang diperluin 👌
+2. Hapus baris yang ada missing 👌
+3. Gabungin fitur menjadi 1 string contoh, tapi nanti ini ditambahin sama kolom qualification
+df['combined_features'] = df['Job Title'] + ' ' + df['Type'] + ' ' + df['Work Hours'] + ' ' + df['Tempat Kerja']
+nanti dia jadinya kaya gini 'Data Analyst Full-Time Flexible hours Jakarta'
+4. Vektorisasi Teks pake TF-IDF cukup pake kolom baru dengan nama df['combined_features']
+5. Setelah divektorisasi kemudian perlu dicoba dengan user input dengan contoh misalnya kaya di Bawah ini
+user_input = 'Data Analyst Full-Time Regular hours Jakarta'
+user_vector = tfidf.transform([user_input])
+6. hitung kemiripan dengan cosine similarity, guna mencocokan kemiripan antara input user dengan semua data yang ada di kolom df['combined_features']
+7. Ambil Top-N Rekomendasi bisa ditentuin seberapa banyak yang mau diambil
+top_n = 3
+top_indices = similarities[0].argsort()[-top_n:][::-1]
+recommendations = df.iloc[top_indices]
+8. Menampilkan informasi pekerjaan yang udah didapetin
+
+############################################################################################################################
+
+Judul:
+Sistem Rekomendasi Lowongan Pekerjaan Data Science di Indonesia Menggunakan Content-Based Filtering pada Platform LinkedIn
+
+Ruang Lingkup:
+Penelitian ini difokuskan pada lowongan pekerjaan yang berkaitan dengan data science di Indonesia, yang diperoleh melalui platform pencarian kerja LinkedIn. Studi ini akan mengidentifikasi berbagai atribut penting dari setiap lowongan, serta menerapkan metode content-based filtering untuk memberikan rekomendasi pekerjaan yang sesuai dengan preferensi pengguna berdasarkan konten lowongan pekerjaan.
+
+Atribut:
+-Job Title: Nama Pekerjaan (Variabel Y)
+-URL: Tautan menuju detail lowongan di LinkedIn (tambahan)
+-Job Qualification: Kualifikasi atau kemampuan yang dibutuhkan (misalnya: Python, Machine Learning, SQL)
+-Type: Jenis pekerjaan (misalnya: Full-Time, Part-Time, Internship, Contract)
+-Work Hours: Jam kerja yang diterapkan (misalnya: Regular hours, Flexible hours, Shift work)
+
+Rancangan Metode:
+Metode yang digunakan dalam penelitian ini adalah Content-Based Filtering, yaitu teknik sistem rekomendasi yang menyarankan item (dalam hal ini, lowongan pekerjaan) kepada pengguna berdasarkan kesamaan konten antar item.
+
+Langkah-langkah dalam metode ini meliputi:
+1. Ekstraksi Fitur
+Mengambil atribut penting dari setiap lowongan, terutama Job Title, Job Qualification, Type, dan Work Hours, yang menjadi dasar untuk menentukan kesamaan antar lowongan.
+2. Representasi Vektor
+Atribut teks seperti Job Title dan Job Qualification diubah menjadi representasi numerik menggunakan metode seperti TF-IDF atau word embeddings (misalnya: Word2Vec, BERT).
+3. Penghitungan Similaritas
+Menghitung tingkat kesamaan antar lowongan menggunakan cosine similarity atau metrik lainnya berdasarkan vektor yang telah dibentuk.
+4. Rekomendasi Pekerjaan
+Memberikan rekomendasi pekerjaan berdasarkan lowongan yang paling mirip dengan preferensi atau riwayat pencarian pengguna. Misalnya, jika pengguna tertarik pada pekerjaan dengan kata kunci “data analyst dengan Python dan SQL,” maka sistem akan menyarankan pekerjaan serupa yang memiliki konten mirip.
+5. Evaluasi
+Validasi sistem dilakukan untuk mengukur akurasi dan relevansi rekomendasi, menggunakan metrik seperti precision, recall, atau feedback pengguna (jika tersedia).
